@@ -17,13 +17,19 @@ const router = express.Router()
 const db = require('../models')
 
 
-/* Routes
+/* Test Routes
 --------------------------------------------------------------- */
 // Index Route (GET/Read): Will display all patients
 router.get('/', function (req, res) {
     db.Patient.find({})
         .then(patients => res.json(patients))
 })
+// New Route (GET/Read): This route renders a form 
+// which the user will fill out to POST (create) a new location
+router.get('/new', (req, res) => {
+    res.send('You\'ve hit the new route!')
+})
+
 // Show Route (GET/Read): Will display an individual patient document
 // using the URL parameter (which is the document _id)
 router.get('/:id', function (req, res) {
@@ -31,11 +37,7 @@ router.get('/:id', function (req, res) {
         .then(patient => res.json(patient))
         .catch(() => res.send('404 Error: Page Not Found'))
 })
-// New Route (GET/Read): This route renders a form 
-// which the user will fill out to POST (create) a new location
-router.get('/new', (req, res) => {
-    res.send('You\'ve hit the new route!')
-})
+
 // Create Route (POST/Create): This route receives the POST request sent from the new route,
 // creates a new patient document using the form data, 
 // and redirects the user to the new patient's show page

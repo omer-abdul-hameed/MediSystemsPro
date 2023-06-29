@@ -16,7 +16,8 @@ const db = require('./models');
 /* Require the routes in the controllers folder
 --------------------------------------------------------------- */
 const patientsCtrl = require('./controllers/patients')
-// const adoptionApplicationCtrl = require('./controllers/applications')
+// const doctorsCtrl = require('./controllers/doctors')
+const doctorsCtrl = require('./controllers/doctors')
 
 
 /* Create the Express app
@@ -84,10 +85,9 @@ app.get('/about', function (req, res) {
 // to handle all routes that begin with `localhost:3000/pets`
 app.use('/patients', patientsCtrl)
 
-// This tells our app to look at the `controllers/applications.js` file 
-// to handle all routes that begin with `localhost:3000/applications`
-// app.use('/applications', adoptionApplicationCtrl)
-
+// This tells our app to look at the `controllers/doctors.js` file 
+// to handle all routes that begin with `localhost:3000/doctors`
+app.use('/doctors', doctorsCtrl)
 
 // The "catch-all" route: Runs for any other URL that doesn't match the above routes
 app.get('*', function (req, res) {

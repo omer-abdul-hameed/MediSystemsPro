@@ -1,6 +1,6 @@
 // Require the Mongoose package
 const mongoose = require('mongoose');
-// const doctorSchema = require('./doctor.js')
+const doctorSchema = require('./doctor.js')
 
 // Create a schema to define the properties of the pets collection
 
@@ -59,7 +59,8 @@ const patientSchema = new mongoose.Schema({
     allergies: {
       type: String,
       default: 'NKDA'
-    }
+    },
+    doctors: [doctorSchema]
   });
 
 // Export the schema as a Monogoose model. 
