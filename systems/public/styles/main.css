@@ -1,0 +1,58 @@
+@import url('https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@400;500;600;700&display=swap');
+
+:root {
+    --color-body: #fdf8e1;
+    --color-heading: #fcefb4;
+    --color-base: #003f88;
+    --color-base2: #00296b;
+    --color-brand: #ffd500;
+    --color-brand2: #fdc500;
+    --sidebar-width: 240px;
+    --font-base: "Bai Jamjuree";
+}
+
+.navbar {
+    background-color: var(--color-base);
+}
+
+.navbar .nav-link {
+    font-weight: 700;
+    text-transform: uppercase;
+    color: white
+}
+
+.navbar .nav-link:hover {
+    color: var(--color-brand);
+}
+
+.navbar-brand img {
+    border-radius: 50%;
+}
+
+.navbar .nav-link.active {
+    color: var(--color-brand)
+}
+.navbar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 30px; 
+  }
+  
+@media (min-width: 992px) {
+    .navbar {
+        min-height: 100vh;
+        width: var(--sidebar-width);
+        background:linear-gradient(rgba(0, 63, 136,0.75),rgba(0, 63, 136,0.75)),url(../img/navvpic.jpg);
+        background-size: cover;
+        background-position: center;
+    }
+
+    .navbar-brand img {
+        border: 8px solid var(--color-brand);
+
+    }
+
+    #content-wrapper {
+        padding-left: var(--sidebar-width)
+    } 
+}

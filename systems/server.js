@@ -56,7 +56,16 @@ app.use(methodOverride('_method'));
 /* Mount routes
 --------------------------------------------------------------- */
 app.get('/', function (req, res) {
-    res.send('MediSystemsPro')
+    res.redirect('/home');
+});
+
+app.get('/home', function (req, res) {
+    db.Patient.find({ isFeatured: true })
+        .then(patients => {
+            res.render('home', {
+                patients: patients
+            });
+        });
 });
 
 
