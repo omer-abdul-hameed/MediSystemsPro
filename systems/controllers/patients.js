@@ -22,7 +22,11 @@ const db = require('../models')
 // Index Route (GET/Read): Will display all patients
 router.get('/', function (req, res) {
     db.Patient.find({})
-        .then(patients => res.json(patients))
+        .then(patients => {
+            res.render('patients/patient-index', {
+                patients: patients
+            })
+        })
 })
 // New Route (GET/Read): This route renders a form 
 // which the user will fill out to POST (create) a new location
@@ -34,9 +38,16 @@ router.get('/new', (req, res) => {
 // using the URL parameter (which is the document _id)
 router.get('/:id', function (req, res) {
     db.Patient.findById(req.params.id)
-        .then(patient => res.json(patient))
-        .catch(() => res.send('404 Error: Page Not Found'))
+        .then(patient => {
+            if (patient) {
+                res.render('patients/patient-details', { patient: patient })
+            } else {
+                res.send('404')
+            }
+        })
+        .catch(() => res.send('404'))
 })
+
 
 // Create Route (POST/Create): This route receives the POST request sent from the new route,
 // creates a new patient document using the form data, 

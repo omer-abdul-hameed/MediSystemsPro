@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../partials/head.ejs', {title: 'MediSystemsPro'}) %>
+    <link rel="stylesheet" href="/styles/patient-details.css">
+</head>
+
+<body>
+    <%- include('../partials/navbar.ejs') %>
+
+    <div class="card d-flex align-items-center">
+        <img src="/assets/images/pt.jpg">
+
+        <h2 class="patient-name"><%= patient.name %></h2>
+
+        <section>
+            <p><strong>Date of Birth:</strong> <%= patient.dob %></p>
+            <p><strong>Age:</strong> <%= patient.age %></p>
+            <p><strong>Sex:</strong> <%= patient.sex%></p>
+            <p><strong>Number:</strong> <%= patient.phoneNumber %></p>
+            <p><strong>Email:</strong> <%= patient.email %></p>
+            <p><strong>Location:</strong> <%= `${patient.city}, ${patient.state}` %></p>
+            <p><strong>Social Security #:</strong> <%= patient.ssn %></p>
+            <p><strong>Marital Status:</strong> <%= patient.maritalStatus %></p>
+            <p><strong>Blood Type:</strong> <%= patient.bloodType %></p>
+            <p><strong>Condition:</strong> <%= patient.condition %></p>
+            <p><strong>Allergies:</strong> <%= patient.allergies %></p>
+            <p><strong>CheckedIn:</strong> <%= patient.checkedIn ? 'Yes' : 'No' %></p>
+        </section>
+
+        <section class="actions d-flex justify-content-between">
+            <a href="/patients/<%= patient._id %>/edit">
+                <button class="btn">Edit Patient</button>
+            </a>
+            <div class="actions d-flex justify-content-between">
+                <form method="POST" action="/patients/<%= patient._id %>?_method=DELETE">
+                    <input class="btn" type="submit" value="Delete Patient" />
+                </form>
+            </div>
+        </section>
+        
+    </div>
+
+    <% if (patient.doctors.length > 0) { %>
+    <div class="doctors d-flex justify-content-between" open>
+        <h1>Current Doctor:</h1>
+        <hr>
+        <ul>
+            <% for (let doc of patient.doctors) { %>
+            <li>
+                <h2>Doctor Name: <%= doc.name %> <%= doc.type %></h2>
+                <p>Specialty: <%= doc.specialty %></p>
+                <p>Currently Available: <%= doc.availability ? 'Yes' : 'No' %></p>
+                <br>
+                <a href="/doctors/<%= doc._id %>">See Doctor</a>
+            </li>
+            <% } %>
+        </ul>
+    </div>
+    <% } %>
+
+    <%- include('../partials/footer.ejs') %>
+</body>
+
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../partials/head.ejs', {title: 'MediSystemsPro'}) %>
+    <link rel="stylesheet" href="/styles/patient-index.css">
+</head>
+
+<body>
+    <%- include('../partials/navbar.ejs') %>
+
+    <section class="hero d-flex flex-column align-items-center">
+        <h2>Welcome to the Patient Tab</h2>
+        <h3>Track all current patients</h3>
+    </section>
+
+    <main>
+        <main>
+            <section class="listings d-flex justify-content-center">
+                <ul>
+                    <% for (let patient of patients) { %>
+                    <li>
+                        <figure>
+                            <img src="/assets/images/pt.jpg">
+                            <figcaption>
+                                <h4>Patient Name: <%= patient.name %></h4>
+                                <p>Patient Age: <%= patient.age %></p>
+                                <p class="checkedInStatus">Checked In: <%= patient.checkedIn ? 'Yes' : 'No' %></p>                                                               
+                                <a href="/patients/<%= patient._id %>">See Details</a>
+                            </figcaption>
+                        </figure>
+                    </li>
+                    <% } %>
+                </ul>
+            </section>
+        </main>
+        
+        
+
+    <%- include('../partials/footer.ejs') %>
+</body>
+
+</html>
