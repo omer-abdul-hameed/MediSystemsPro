@@ -31,7 +31,7 @@ router.get('/', function (req, res) {
 // New Route (GET/Read): This route renders a form 
 // which the user will fill out to POST (create) a new location
 router.get('/new', (req, res) => {
-    res.send('You\'ve hit the new route!')
+    res.render('patients/new-form')
 })
 
 // Show Route (GET/Read): Will display an individual patient document
@@ -41,11 +41,11 @@ router.get('/:id', function (req, res) {
         .then(patient => {
             if (patient) {
                 res.render('patients/patient-details', { patient: patient })
-            } else {
-                res.send('404')
+            }  else {
+                res.render('404')
             }
         })
-        .catch(() => res.send('404'))
+        .catch(() => res.render('404'))
 })
 
 
@@ -54,7 +54,7 @@ router.get('/:id', function (req, res) {
 // and redirects the user to the new patient's show page
 router.post('/', (req, res) => {
     db.Patient.create(req.body)
-        .then(patient => res.json(patient))
+        .then(patient => res.redirect('/patients/' + patient._id))
 })
 // Edit Route (GET/Read): This route renders a form
 // the user will use to PUT (edit) properties of an existing pet
