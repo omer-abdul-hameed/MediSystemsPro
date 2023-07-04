@@ -2,7 +2,7 @@
 const mongoose = require('mongoose');
 const doctorSchema = require('./doctor.js')
 
-// Create a schema to define the properties of the pets collection
+// Create a schema to define the properties of the patients collection
 
 const patientSchema = new mongoose.Schema({
   name: {

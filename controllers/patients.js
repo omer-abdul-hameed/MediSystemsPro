@@ -57,13 +57,14 @@ router.post('/', (req, res) => {
         .then(patient => res.redirect('/patients/' + patient._id))
 })
 // Edit Route (GET/Read): This route renders a form
-// the user will use to PUT (edit) properties of an existing pet
+// the user will use to PUT (edit) properties of an existing patient
 router.get('/:id/edit', (req, res) => {
     db.Patient.findById(req.params.id)
-        .then(patient => res.send('You\'ll be editing patient ' + patient.name))
+        .then(patient => res.render('patients/edit-form', { patient: patient }))
 })
+
 // Update Route (PUT/Update): This route receives the PUT request sent from the edit route, 
-// edits the specified pet document using the form data,
+// edits the specified patient document using the form data,
 // and redirects the user back to the show page for the updated location.
 router.put('/:id', (req, res) => {
     db.Patient.findByIdAndUpdate(
@@ -71,7 +72,7 @@ router.put('/:id', (req, res) => {
         req.body,
         { new: true }
     )
-        .then(patient => res.json(patient))
+        .then(patient => res.redirect('/patients/' + patient._id))
 })
 // Destroy Route (DELETE/Delete): This route deletes a pet document 
 // using the URL parameter (which will always be the pet document's ID)
