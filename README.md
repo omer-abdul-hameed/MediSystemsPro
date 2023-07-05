@@ -39,7 +39,7 @@ MONGODB_URI=mongodb://localhost/medisystemspro</code></pre>
         <pre><code>npm run dev</code></pre>
     </li>
     <li>Open your browser and visit `http://localhost:3000` to access the application.</li>
-    <li>Visit <a href="https://medisystemspro-46edbfd6b8f3.herokuapp.com/home">Live Site</a> Instead !</li>
+    <li>Visit <a href="https://medisystemspro-46edbfd6b8f3.herokuapp.com/home"> Live Site</a> Instead !</li>
 </ol>
 
 # User Stories
