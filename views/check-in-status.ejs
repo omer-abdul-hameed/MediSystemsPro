@@ -24,9 +24,9 @@
                     <div class="carousel-caption">
                         <h4>Age: <%= patient.age %></h4>
                         <h2><%= patient.name %></h2>
-                        <form method="POST" actions="/patients/<%= patient._id %>/checkout?_method=PUT"
-                            class="btn-group" role="group">
-                            <button type="submit" class="btn btn-sm btn-red">Check-Out</button>
+                        <form method="POST" action="/patients/<%= patient._id %>/checkout?_method=PUT" class="btn-group"
+                            role="group">
+                            <button type="submit" class="btn btn-sm btn-gray">Check-Out</button>
                         </form>
                     </div>
                 </div>
