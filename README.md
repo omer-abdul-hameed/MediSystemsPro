@@ -1,5 +1,4 @@
 # MediSystemsPro
-<<<<<<< HEAD
 MediSystemsPro is a comprehensive hospital management system built using the MEN (MongoDB, Express.js, and Node.js) stack. It provides a user-friendly interface for effectively managing patients and doctors with full CRUD (Create, Read, Update, Delete) functionality and seamless navigation through various RESTful routes. This application simplifies the process of tracking and monitoring patients within a hospital setting, offering a streamlined and efficient experience for healthcare professionals.
 
 **Screenshot of app**
@@ -104,6 +103,4 @@ Additionally, there was an unsuccessful attempt to display all the patients asso
 
 
 
-=======
->>>>>>> origin/main
 
