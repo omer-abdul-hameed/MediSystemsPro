@@ -74,8 +74,49 @@ router.put('/:id', (req, res) => {
     )
         .then(patient => res.redirect('/patients/' + patient._id))
 })
-// Destroy Route (DELETE/Delete): This route deletes a pet document 
-// using the URL parameter (which will always be the pet document's ID)
+// Check-In Route (PUT/Buy): This route receives the PUT request when a user wants to check-in a patient.
+// It sets the boolean to true and redirects the user back to the show page for the updated patient.
+router.put('/:id/checkin', (req, res) => {
+    console.log('checkin route accessed');
+    db.Patient.findByIdAndUpdate(
+        req.params.id,
+        { 
+            $set: { checkedIn: true } // Set checkedIn to true
+        },
+        { new: true }
+    )
+        .then(patient => {
+            console.log('Patient Updated:', patient);
+            res.redirect('/patients/' + patient._id);
+        })
+        .catch(err => {
+            console.error('Error updating patient:', err);
+            res.render('404');
+        });
+});
+// Checkout Route (PUT/Checkout): This route receives the PUT request when a user wants to checkout a patient.
+// It sets the boolean to false and redirects the user back to the show page for the updated patient.
+router.put('/:id/checkout', (req, res) => {
+    console.log('checkout route accessed');
+    db.Patient.findByIdAndUpdate(
+        req.params.id,
+        { 
+            $set: { checkedIn: false } // Set checkedIn to false
+        },
+        { new: true }
+    )
+        .then(patient => {
+            console.log('Patient Updated:', patient);
+            res.redirect('/patients/' + patient._id);
+        })
+        .catch(err => {
+            console.error('Error updating patient:', err);
+            res.render('404');
+        });
+});
+
+// Destroy Route (DELETE/Delete): This route deletes a patient document 
+// using the URL parameter (which will always be the patient document's ID)
 router.delete('/:id', (req, res) => {
     db.Patient.findByIdAndRemove(req.params.id)
         .then(patient => res.send('You\'ve deleted patient ' + patient.name))

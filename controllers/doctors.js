@@ -64,10 +64,10 @@ router.get('/:id', (req, res) => {
         { 'doctors._id': req.params.id },
         { 'doctors.$': true, _id: false }
     )
-        .then(patient => {
-	        // format query results to appear in one object, 
-	        // rather than an object containing an array of one object
-            res.json(patient.doctors[0])
+        .then(product => {
+            // format query results to appear in one object, 
+            // rather than an object containing an array of one object
+            res.render('doctors/doctor-details', { doc: patient.doctors[0] })
         })
 });
 // Edit Route (GET/Read): This route renders a form

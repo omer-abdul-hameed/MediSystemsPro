@@ -152,7 +152,30 @@ nav a {
 .btn:hover {
     background-color: #555;
 }
+.btn-group .btn {
+    padding: 0.5rem 1rem; /* Adjust padding as needed */
+    margin-right: 10px; /* Add space between buttons */
+  }
 
+  .btn-green {
+    background-color: green;
+    color: white;
+  }
+
+  .btn-gray {
+    background-color: gray;
+    color: white;
+  }
+
+  .btn-yellow {
+    background-color: yellow;
+    color: black;
+  }
+
+  .btn-red {
+    background-color: red;
+    color: white;
+  }
 /* Footer styles */
 footer {
     text-align: center;

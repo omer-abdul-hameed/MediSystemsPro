@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../partials/head.ejs', {title: 'Doctor Details| MediSystemsPro' }) %>
+        <link rel="stylesheet" href="/styles/doctor-details.css">
+</head>
+
+<body>
+    <%- include('../partials/navbar.ejs') %>
+
+        <%- include('../partials/navbar.ejs') %>
+
+            <div class="card d-flex align-items-center">
+                <img src="/assets/images/pt.jpg">
+
+                <h2 class="doctor-name">
+                    <%= doc.name %>
+                </h2>
+
+                <section>
+                    <p><strong>Specialty:</strong>
+                        <%= doc.specialty %>
+                    </p>
+                    <p><strong>Type:</strong>
+                        <%= doc.type %>
+                    </p>
+                    <p><strong>School:</strong>
+                        <%= doc.school%>
+                    </p>
+                    <p><strong>Phone Number:</strong>
+                        <%= doc.phoneNumber %>
+                    </p>
+                    <p><strong>Email:</strong>
+                        <%= doc.email %>
+                    </p>
+                    <p><strong>Available:</strong>
+                        <%= doc.availability ? 'Yes' : 'No' %>
+                    </p>
+                </section>
+
+                <section class="actions">
+                    <div class="btn-group btn-group-justified" role="group" aria-label="Patient Actions">
+                        <a href="/patients/<%= patient._id %>/edit" class="btn btn-sm btn-yellow">Edit Patient</a>
+                        <form method="POST" action="/patients/<%= patient._id %>/checkin?_method=PUT" class="btn-group"
+                            role="group">
+                            <button type="submit" class="btn btn-sm btn-green">Check-In</button>
+                        </form>
+                        <form method="POST" action="/patients/<%= patient._id %>/checkout?_method=PUT" class="btn-group"
+                            role="group">
+                            <button type="submit" class="btn btn-sm btn-gray">Check-Out</button>
+                        </form>
+                        <form method="POST" action="/patients/<%= patient._id %>?_method=DELETE" class="btn-group"
+                            role="group">
+                            <input type="submit" class="btn btn-sm btn-red" value="Delete Patient" />
+                        </form>
+                    </div>
+                </section>
+
+            </div>
+            <%- include('../partials/footer.ejs') %>
+</body>
+
+</html>
