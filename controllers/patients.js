@@ -17,7 +17,7 @@ const router = express.Router()
 const db = require('../models')
 
 
-/* Test Routes
+/* Routes
 --------------------------------------------------------------- */
 // Index Route (GET/Read): Will display all patients
 router.get('/', function (req, res) {
@@ -30,24 +30,47 @@ router.get('/', function (req, res) {
 })
 // New Route (GET/Read): This route renders a form 
 // which the user will fill out to POST (create) a new location
+//queried for all doctors and define doctors variable for the patient form
 router.get('/new', (req, res) => {
     res.render('patients/new-form')
 })
 
 // Show Route (GET/Read): Will display an individual patient document
 // using the URL parameter (which is the document _id)
+//querying the doctors object so it can be accesible in the patient show page
 router.get('/:id', function (req, res) {
-    db.Patient.findById(req.params.id)
-        .then(patient => {
-            if (patient) {
-                res.render('patients/patient-details', { patient: patient })
-            }  else {
-                res.render('404')
-            }
-        })
-        .catch(() => res.render('404'))
-})
-
+    Promise.all([
+      db.Patient.findById(req.params.id).populate('doctors'), // populate the doctors field in the patient document
+      db.Doctor.find({})
+    ])
+      .then(([patient, doctors]) => {
+        if (patient) {
+          res.render('patients/patient-details', { patient: patient, doctors: doctors });
+        } else {
+          res.render('404');
+        }
+      })
+      .catch(() => res.render('404'));
+  });
+ 
+  router.post('/:id/assign-doctor', function (req, res) {
+    const patientId = req.params.id;
+    const doctorId = req.body.doctor;
+  
+    db.Patient.findById(patientId)
+      .then(patient => {
+        if (patient) {
+          patient.doctors.push(doctorId);
+          return patient.save();
+        } else {
+          throw new Error('Patient not found');
+        }
+      })
+      .then(() => {
+        res.redirect('/patients/' + patientId);
+      })
+      .catch(() => res.render('404'));
+  });
 
 // Create Route (POST/Create): This route receives the POST request sent from the new route,
 // creates a new patient document using the form data, 
@@ -56,6 +79,7 @@ router.post('/', (req, res) => {
     db.Patient.create(req.body)
         .then(patient => res.redirect('/patients/' + patient._id))
 })
+
 // Edit Route (GET/Read): This route renders a form
 // the user will use to PUT (edit) properties of an existing patient
 router.get('/:id/edit', (req, res) => {
@@ -74,6 +98,20 @@ router.put('/:id', (req, res) => {
     )
         .then(patient => res.redirect('/patients/' + patient._id))
 })
+// router.post('/:id/assign-doctor', (req, res) => {
+//     const patientId = req.params.id;
+//     const doctorId = req.body.doctor;
+  
+//     // Find the patient by ID and update the doctors array
+//     db.Patient.findByIdAndUpdate(patientId, { $push: { doctors: doctorId } })
+//       .then(() => {
+//         // Redirect the user to the patient details page
+//         res.redirect(`/patients/${patientId}`);
+//       })
+//       .catch(() => {
+//         res.render('error'); // Render an error page if the operation fails
+//       });
+//   });
 // Check-In Route (PUT/Buy): This route receives the PUT request when a user wants to check-in a patient.
 // It sets the boolean to true and redirects the user back to the show page for the updated patient.
 router.put('/:id/checkin', (req, res) => {
@@ -119,7 +157,7 @@ router.put('/:id/checkout', (req, res) => {
 // using the URL parameter (which will always be the patient document's ID)
 router.delete('/:id', (req, res) => {
     db.Patient.findByIdAndRemove(req.params.id)
-        .then(patient => res.send('You\'ve deleted patient ' + patient.name))
+        .then(() => res.redirect('/patients'))
 })
 
 

@@ -35,5 +35,4 @@ const doctorSchema = new mongoose.Schema({
 });
 
 // Export the schema as a Mongoose model
-module.exports = doctorSchema;
-// module.exports = mongoose.model('Doctor', doctorSchema);
+module.exports = mongoose.model('Doctor', doctorSchema);

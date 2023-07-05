@@ -1,13 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@400;500;600;700&display=swap');
 
 :root {
-    --color-body: #fdf8e1;
-    --color-heading: #fcefb4;
-    --color-base: #003f88;
-    --color-base2: #00296b;
-    --color-brand: #ffd500;
-    --color-brand2: #fdc500;
-    --sidebar-width: 240px;
+    --color-body: #b6cbce;
+    --color-heading: #eef3db;
+    --color-base: #033f47;
+    --color-base2: #022a30;
+    --color-brand: #e0f780;
+    --color-brand2: #deff58;
+    --sidbar-width: 240px;
     --font-base: "Bai Jamjuree";
 }
 
@@ -56,6 +56,24 @@
 }
 
 /* General styles */
+.header {
+    background-color: #335c67;
+    padding: 20px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .header-title {
+    color: #fff;
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin: 0;
+  }
+  
+  
 body {
     font-family: Arial, sans-serif;
     font-size: 16px;
@@ -175,7 +193,15 @@ nav a {
   .btn-red {
     background-color: red;
     color: white;
-  }
+    padding: 5px 10px; /* Adjust padding as needed */
+    border-radius: 3px; /* Adjust border-radius as needed */
+}
+
+.btn-red:hover {
+    background-color: #ff0000;
+    /* Add hover styles if desired */
+}
+
 /* Footer styles */
 footer {
     text-align: center;
@@ -195,18 +221,18 @@ footer ul {
 @media (min-width: 992px) {
     .navbar {
         min-height: 100vh;
-        width: var(--sidebar-width);
-        background:linear-gradient(rgba(0, 63, 136,0.75),rgba(0, 63, 136,0.75)),url(../img/navvpic.jpg);
+        width: var(--sidbar-width);
+        background: linear-gradient(rgba(3, 63, 71, 0.8), rgba(3, 63, 71, 0.8));
         background-size: cover;
         background-position: center;
     }
 
     .navbar-brand img {
         border: 8px solid var(--color-brand);
-
     }
 
+    /* CONTENT WRAPPER */
     #content-wrapper {
-        padding-left: var(--sidebar-width)
-    } 
+        padding-left: var(--sidbar-width);
+    }
 }

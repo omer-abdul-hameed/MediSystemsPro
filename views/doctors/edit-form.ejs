@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../partials/head.ejs', {title: 'Edit a Doctor | Patient Management' }) %>
+        <link rel="stylesheet" href="/styles/patient-form.css">
+</head>
+
+<body>
+    <%- include('../partials/navbar.ejs') %>
+
+        <section class="hero">
+            <h2>Edit Doctor</h2>
+            <h4><i>Please add new changes below:</i></h4>
+        </section>
+
+        <form method="POST" action="/doctors/<%= doctor._id %>?_method=PUT">
+            <!-- Name input -->
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" value="<%= doctor.name %>" required>
+            <br>
+
+            <!-- Specialty input -->
+            <label for="specialty">Specialty:</label>
+            <input type="text" id="specialty" name="specialty" value="<%= doctor.specialty %>" required>
+            <br>
+
+            <!-- Type input -->
+            <label for="type">Type:</label>
+            <select id="type" name="type" value="<%= doctor.type %>"required>
+                <option value="MD">MD</option>
+                <option value="DO">DO</option>
+            </select>
+            <br>
+
+            <!-- School input -->
+            <label for="school">School:</label>
+            <input type="text" id="school" name="school" value="<%= doctor.school %>" required>
+            <br>
+
+            <!-- Phone Number input -->
+            <label for="phoneNumber">Phone Number:</label>
+            <input type="text" id="phoneNumber" name="phoneNumber" value="<%= doctor.phoneNumber %>" required>
+            <br>
+
+            <!-- Email input -->
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" value="<%= doctor.email %>" required>
+            <br>
+
+            <input type="submit" value="Edit Doctor">
+        </form>
+
+        <%- include('../partials/footer.ejs') %>
+</body>
+
+</html>

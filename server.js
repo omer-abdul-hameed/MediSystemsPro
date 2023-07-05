@@ -60,13 +60,9 @@ app.get('/', function (req, res) {
 });
 
 app.get('/home', function (req, res) {
-    db.Patient.find({ isFeatured: true })
-        .then(patients => {
-            res.render('home', {
-                patients: patients
-            });
-        });
+    res.render('home');
 });
+
 
 
 // When a GET request is sent to `/seed`, the patients collection is seeded

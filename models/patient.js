@@ -1,6 +1,5 @@
 // Require the Mongoose package
 const mongoose = require('mongoose');
-const doctorSchema = require('./doctor.js')
 
 // Create a schema to define the properties of the patients collection
 
@@ -64,7 +63,10 @@ const patientSchema = new mongoose.Schema({
     type: String,
     default: 'NKDA'
   },
-  doctors: [doctorSchema]
+  doctors: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Doctor'
+  }]
 });
 
 // Export the schema as a Monogoose model. 

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../partials/head.ejs', {title: 'MediSystemsPro' }) %>
+        <link rel="stylesheet" href="/styles/patient-index.css">
+</head>
+
+<body>
+    <%- include('../partials/navbar.ejs') %>
+
+        <section class="hero d-flex flex-column align-items-center">
+            <h2>Welcome to the Doctor Tab</h2>
+            <h3>View all doctors in our system</h3>
+        </section>
+
+        <main>
+            <div class="text-end m-4">
+                <a href="/doctors/new" class="btn btn-primary">Add a New Doctor</a>
+            </div>
+            <main>
+                <section class="listings d-flex justify-content-center">
+                    <ul>
+                        <% for (let doctor of doctors) { %>
+                            <li>
+                                <figure>
+                                    <img src="/assets/images/pt.jpg">
+                                    <br>
+                                    <figcaption class="text-center">
+                                        <br>
+                                        <h2>Dr. <%= doctor.name %>
+                                                <%=doctor.type %>
+                                        </h2>
+                                        <br>
+                                        <h4>
+                                            <%= doctor.specialty %>
+                                        </h4>
+                                        <h5>
+                                            <strong class="<%= doctor.availability ? 'text-success' : 'text-danger' %>">
+                                                <%= doctor.availability ? 'Available' : 'Unavailable' %>
+                                            </strong>
+                                        </h5>
+                                        <a href="/doctors/<%= doctor._id %>">See Details</a>
+                                    </figcaption>
+                                </figure>
+                            </li>
+                            <% } %>
+                    </ul>
+                </section>
+            </main>
+
+
+
+            <%- include('../partials/footer.ejs') %>
+</body>
+
+</html>

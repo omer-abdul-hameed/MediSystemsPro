@@ -2,63 +2,62 @@
 <html lang="en">
 
 <head>
-    <%- include('../partials/head.ejs', {title: 'Doctor Details| MediSystemsPro' }) %>
-        <link rel="stylesheet" href="/styles/doctor-details.css">
+    <%- include('../partials/head.ejs', {title: 'MediSystemsPro' }) %>
+        <link rel="stylesheet" href="/styles/patient-details.css">
 </head>
 
 <body>
     <%- include('../partials/navbar.ejs') %>
 
-        <%- include('../partials/navbar.ejs') %>
+        <div class="card d-flex align-items-center">
+            <img src="/assets/images/pt.jpg">
 
-            <div class="card d-flex align-items-center">
-                <img src="/assets/images/pt.jpg">
+            <h2 class="doctor-name">
+                Dr. <%= doctor.name %> <%=doctor.type %>
+            </h2>
 
-                <h2 class="doctor-name">
-                    <%= doc.name %>
-                </h2>
+            <section>
+                <p><strong>Specialty:</strong>
+                    <%= doctor.specialty %>
+                </p>
+                <p><strong>School:</strong>
+                    <%= doctor.school %>
+                </p>
+                <p><strong>Number:</strong>
+                    <%= doctor.phoneNumber %>
+                </p>
+                <p><strong>Email:</strong>
+                    <%= doctor.email %>
+                </p>
+                <p class='text-center'>
+                    <strong class="<%= doctor.availability ? 'text-success' : 'text-danger' %>">
+                        <%= doctor.availability ? 'Available' : 'Unavailable' %>
+                    </strong>
+                </p>
+            </section>
 
-                <section>
-                    <p><strong>Specialty:</strong>
-                        <%= doc.specialty %>
-                    </p>
-                    <p><strong>Type:</strong>
-                        <%= doc.type %>
-                    </p>
-                    <p><strong>School:</strong>
-                        <%= doc.school%>
-                    </p>
-                    <p><strong>Phone Number:</strong>
-                        <%= doc.phoneNumber %>
-                    </p>
-                    <p><strong>Email:</strong>
-                        <%= doc.email %>
-                    </p>
-                    <p><strong>Available:</strong>
-                        <%= doc.availability ? 'Yes' : 'No' %>
-                    </p>
-                </section>
+            <section class="actions">
+                <div class="btn-group btn-group-justified" role="group" aria-label="doctor Actions">
+                    <a href="/doctors/<%= doctor._id %>/edit" class="btn btn-sm btn-yellow">Edit</a>
+                    <form method="POST" action="/doctors/<%= doctor._id %>/available?_method=PUT" class="btn-group"
+                        role="group">
+                        <button type="submit" class="btn btn-sm btn-green">Available</button>
+                    </form>
+                    <form method="POST" action="/doctors/<%= doctor._id %>/unavailable?_method=PUT" class="btn-group"
+                        role="group">
+                        <button type="submit" class="btn btn-sm btn-gray">Unavailable</button>
+                    </form>
+                    <form method="POST" action="/doctors/<%= doctor._id %>?_method=DELETE" class="btn-group"
+                        role="group">
+                        <input type="submit" class="btn btn-sm btn-red" value="Delete" />
+                    </form>
+                </div>
+            </section>
 
-                <section class="actions">
-                    <div class="btn-group btn-group-justified" role="group" aria-label="Patient Actions">
-                        <a href="/patients/<%= patient._id %>/edit" class="btn btn-sm btn-yellow">Edit Patient</a>
-                        <form method="POST" action="/patients/<%= patient._id %>/checkin?_method=PUT" class="btn-group"
-                            role="group">
-                            <button type="submit" class="btn btn-sm btn-green">Check-In</button>
-                        </form>
-                        <form method="POST" action="/patients/<%= patient._id %>/checkout?_method=PUT" class="btn-group"
-                            role="group">
-                            <button type="submit" class="btn btn-sm btn-gray">Check-Out</button>
-                        </form>
-                        <form method="POST" action="/patients/<%= patient._id %>?_method=DELETE" class="btn-group"
-                            role="group">
-                            <input type="submit" class="btn btn-sm btn-red" value="Delete Patient" />
-                        </form>
-                    </div>
-                </section>
+        </div>
 
-            </div>
-            <%- include('../partials/footer.ejs') %>
+
+                <%- include('../partials/footer.ejs') %>
 </body>
 
 </html>

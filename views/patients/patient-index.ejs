@@ -15,6 +15,9 @@
     </section>
 
     <main>
+        <div class="text-end m-4">
+            <a href="/patients/new" class="btn btn-primary">Add a New Patient</a>
+        </div>
         <main>
             <section class="listings d-flex justify-content-center">
                 <ul>
@@ -23,9 +26,16 @@
                         <figure>
                             <img src="/assets/images/pt.jpg">
                             <figcaption>
-                                <h4>Patient Name: <%= patient.name %></h4>
-                                <p>Patient Age: <%= patient.age %></p>
-                                <p class="checkedInStatus">Checked In: <%= patient.checkedIn ? 'Yes' : 'No' %></p>                                                               
+                                <br>
+                                <h2><%= patient.name %></h2>
+                                <br>
+                                <h4>Age: <%= patient.age %></h4>
+                                <br>
+                                <h5>
+                                    <strong class="<%=patient.checkedIn ? 'text-success' : 'text-danger' %>">
+                                        <%=patient.checkedIn ? 'Checked-In' : 'Checked-Out' %>
+                                    </strong>
+                                </h5>                                                               
                                 <a href="/patients/<%= patient._id %>">See Details</a>
                             </figcaption>
                         </figure>

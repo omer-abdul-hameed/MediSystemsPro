@@ -20,148 +20,115 @@ const db = require('../models')
 --------------------------------------------------------------- */
 // Index Route (All doctors): 
 // GET localhost:3000/doctors/
-router.get('/', (req, res) => {
-	db.Patient.find({}, { doctors: true, _id: false })
-        .then(patients => {
-		    // format query results to appear in one array, 
-		    // rather than an array of objects containing arrays 
-	    	const flatList = []
-	    	for (let patient of patients) {
-	        	flatList.push(...patient.doctors)
-	    	}
-	    	res.json(flatList)
-		}
-	)
-});
+router.get('/', function (req, res) {
+    db.Doctor.find({})
+        // .then(doctors => res.json(doctors))
+    .then(doctors => {
+        res.render('doctors/doctors-index', {
+            doctors: doctors
+        })
+    })
+})
 
 // New Route: GET localhost:3000/doctors/new
-router.get('/new/:patientId', (req, res) => {
-    res.send('You\'ve reached the new route. You\'ll be making a new doctor for patient ' + req.params.patientId)
-})
 // New Route (GET/Read): This route renders a form 
 // which the user will fill out to POST (create) a new location
-// router.get('/new', (req, res) => {
-//     res.send('You\'ve hit the new route!')
-// })
-
+router.get('/new', (req, res) => {
+    // res.send('You\'ve hit the new route!')
+    res.render('doctors/new-form')
+})
+// Show Route (GET/Read): Will display an individual doctor document
+// using the URL parameter (which is the document _id)
+router.get('/:id', function (req, res) {
+    db.Doctor.findById(req.params.id)
+        // .then(doctor => res.json(doctor))
+        // .catch(() => res.send('404 Errsor: Page Not Found'))
+        .then(doctor => {
+            if (doctor) {
+                res.render('doctors/doctors-details', { doctor: doctor })
+            } else {
+                res.render('404')
+            }
+        })
+        .catch(() => res.render('404'))
+})
 // Create Route: POST localhost:3000/doctors/
-router.post('/create/:patientId', (req, res) => {
-    db.Patient.findByIdAndUpdate(
-        req.params.patientId,
-        { $push: { doctors: req.body } },
-        { new: true }
-    )
-        .then(patient => res.json(patient))
-});
-// router.post('/', (req, res) => {
-//     db.Doctor.create(req.body)
-//         .then(doctor => res.json(doctor))
-// })
-
-// Show Route: GET localhost:3000/doctors/:id
-router.get('/:id', (req, res) => {
-    db.Patient.findOne(
-        { 'doctors._id': req.params.id },
-        { 'doctors.$': true, _id: false }
-    )
-        .then(product => {
-            // format query results to appear in one object, 
-            // rather than an object containing an array of one object
-            res.render('doctors/doctor-details', { doc: patient.doctors[0] })
-        })
-});
-// Edit Route (GET/Read): This route renders a form
-// the user will use to PUT (edit) properties of an existing pet
-router.get('/:id/edit', (req, res) => {
-    db.Patient.findOne({ 'doctors._id': req.params.id })
-        .then(patient => {
-            const doctor = patient.doctors.find(doc => doc._id == req.params.id);
-            res.send('You\'ll be editing doctor ' + doctor.name);
-        })
-});
-
-// Update Route (PUT/Update): This route receives the PUT request sent from the edit route, 
-// edits the specified pt document using the form data,
-// and redirects the user back to the show page for the updated location.
-router.put('/:id', (req, res) => {
-    db.Patient.findOneAndUpdate(
-      { 'doctors._id': req.params.id },
-      { $set: { 'doctors.$': req.body } },
-      { new: true }
-    )
-        .then(patient => res.json(patient.doctors[0]))
+// Creates a new doctor document using the form data, 
+// And redirects the user to the new doctor's show page
+router.post('/', (req, res) => {
+    db.Doctor.create(req.body)
+        // .then(doctor => res.json(doctor))
+        .then(doctor => res.redirect('/doctors/' + doctor._id))
 })
 
-// Destroy Route: DELETE localhost:3000/doctors/:id
-router.delete('/:id', (req, res) => {
-    db.Patient.findOneAndUpdate(
-        { 'doctors._id': req.params.id },
-        { $pull: { doctors: { _id: req.params.id } } },
+// Edit Route (GET/Read): This route renders a form
+// the user will use to PUT (edit) properties of an existing doctor
+router.get('/:id/edit', (req, res) => {
+    db.Doctor.findById(req.params.id)
+        // .then(doctor => res.send('You\'ll be editing doctor ' + doctor.name))
+        .then(doctor => res.render('doctors/edit-form', { doctor: doctor }))
+})
+
+// Update Route (PUT/Update): This route receives the PUT request sent from the edit route, 
+// edits the specified doctor document using the form data,
+// and redirects the user back to the show page for the updated location.
+router.put('/:id', (req, res) => {
+    db.Doctor.findByIdAndUpdate(
+        req.params.id,
+        req.body,
         { new: true }
     )
-        .then(patient => res.json(patient))
+        // .then(doctor => res.json(doctor))
+    .then(doctor => res.redirect('/doctors/' + doctor._id))
+})
+// Available Route (PUT): This route receives the PUT request when a user wants to make a doctor available.
+// It sets the boolean to true and redirects the user back to the show page for the updated doctor.
+router.put('/:id/available', (req, res) => {
+    console.log('available route accessed');
+    db.Doctor.findByIdAndUpdate(
+        req.params.id,
+        { 
+            $set: { availability: true } // Set checkedIn to true
+        },
+        { new: true }
+    )
+        .then(doctor => {
+            console.log('Doctor Updated:', doctor);
+            res.redirect('/doctors/' + doctor._id);
+        })
+        .catch(err => {
+            console.error('Error updating Doctor:', err);
+            res.render('404');
+        });
+});
+// Unavailable Route (PUT): This route receives the PUT request when a user wants to make a doctor unavailable.
+// It sets the boolean to false and redirects the user back to the show page for the updated doctor.
+router.put('/:id/unavailable', (req, res) => {
+    console.log('unavailable route accessed');
+    db.Doctor.findByIdAndUpdate(
+        req.params.id,
+        { 
+            $set: { availability: false } // Set availability to false
+        },
+        { new: true }
+    )
+        .then(doctor => {
+            console.log('Doctor Updated:', doctor);
+            res.redirect('/doctors/' + doctor._id);
+        })
+        .catch(err => {
+            console.error('Error updating Doctor:', err);
+            res.render('404');
+        });
 });
 
-/* Routes
---------------------------------------------------------------- */
-// // Index Route (All doctors): 
-// // GET localhost:3000/doctors/
-// router.get('/', (req, res) => {
-//     db.Patient.find({}, { doctors: true, _id: false })
-//         .then(patients => {
-//             // format query results to appear in one array, 
-//             // rather than an array of objects containing arrays 
-//             const flatList = []
-//             for (let patient of patients) { flatList.push(...patient.doctors) }
-//             res.render('doctors/doctors-index', { docs: flatList })
-//         })
-// });
-
-// // New Route: GET localhost:3000/doctors/new/:patientId
-// router.get('/new/:patientId', (req, res) => {
-//     db.Patient.findById(req.params.patientId)
-//         .then(patient => {
-//             if (patient) {
-//                 res.render('doctors/new-form.ejs', { patient: patient })
-//             } else {
-//                 res.render('404')
-//             }
-//         })
-// })
-
-// // Create Route: POST localhost:3000/doctors/
-// router.post('/create/:patientId', (req, res) => {
-//     db.Patient.findByIdAndUpdate(
-//         req.params.patientId,
-//         { $push: { doctors: req.body } },
-//         { new: true }
-//     )
-//         .then(() => res.redirect('/patients/' + req.params.patientId))
-// });
-
-// // Show Route: GET localhost:3000/doctors/:id
-// router.get('/:id', (req, res) => {
-//     db.Patient.findOne(
-//         { 'doctors._id': req.params.id },
-//         { 'doctors.$': true, _id: false }
-//     )
-//         .then(patient => {
-//             // format query results to appear in one object, 
-//             // rather than an object containing an array of one object
-//             res.render('doctors/doctors-details', { doc: patient.doctors[0] })
-//         })
-// });
-
-// // Destroy Route: DELETE localhost:3000/doctors/:id
-// router.delete('/:id', (req, res) => {
-//     db.Patient.findOneAndUpdate(
-//         { 'doctors._id': req.params.id },
-//         { $pull: { doctors: { _id: req.params.id } } },
-//         { new: true }
-//     )
-//         .then(patient => res.redirect('/patients/' + patient._id))
-// });
-
+// Destroy Route (DELETE/Delete): This route deletes a doctor document 
+// using the URL parameter (which will always be the doctor document's ID)
+router.delete('/:id', (req, res) => {
+    db.Doctor.findByIdAndRemove(req.params.id)
+        // .then(doctor => res.send('You\'ve deleted doctor ' + doctor._id))
+        .then(() => res.redirect('/doctors'))
+})
 
 /* Export these routes so that they are accessible in `server.js`
 --------------------------------------------------------------- */
