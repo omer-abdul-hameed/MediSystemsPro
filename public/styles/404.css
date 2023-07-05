@@ -36,3 +36,7 @@ a {
 a {
     margin-top: auto;
 }
+.glassy a:hover {
+    color: darkgreen;
+}
+
