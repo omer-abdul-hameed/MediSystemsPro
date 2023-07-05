@@ -1,0 +1,188 @@
+.featured-products {
+    background-color: #f7f7f7;
+    padding: 2rem;
+}
+
+.featured-products h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.product-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    list-style: none;
+    margin-top: 2rem;
+    transition: transform 0.5s;
+    width: 100%;
+    overflow-x: hidden;
+}
+
+.product-grid li {
+    width: calc(33.33% - 1rem);
+    min-width: 300px;
+    margin-bottom: 2rem;
+    background-color: #fff;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    overflow: hidden;
+    opacity: 0.5;
+    transition: opacity 0.5s;
+}
+
+.product-grid li.active {
+    opacity: 1;
+}
+
+figure {
+    height: 70%;
+}
+
+.product-grid img {
+    max-width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+figcaption {
+    height: 30%;
+    padding: 1rem 2rem 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.featured-info h3 {
+    font-size: calc(1em + 0.5vw);
+}
+
+.featured-info p {
+    font-size: calc(0.5rem + 0.5vw);
+}
+
+/* Custom carousel styles */
+.carousel {
+    max-width: 800px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.carousel-inner {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    width: calc(100% * 3);
+    transition: transform 0.5s;
+}
+
+.carousel-item {
+    flex: 0 0 calc(100% / 3);
+}
+
+.carousel-item img {
+    width: 100%;
+    height: auto;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+    width: 5%;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: transparent;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 30px;
+    height: 30px;
+    background-size: 100%;
+    transition: transform 0.2s;
+}
+
+.carousel-control-prev-icon {
+    background-image: url("https://cdn-icons-png.flaticon.com/128/271/271220.png");
+}
+
+.carousel-control-next-icon {
+    background-image: url("https://cdn-icons-png.flaticon.com/128/271/271228.png");
+}
+
+.carousel-control-prev:hover .carousel-control-prev-icon,
+.carousel-control-next:hover .carousel-control-next-icon {
+    transform: scale(1.1);
+}
+
+.carousel-indicators {
+    position: static;
+}
+
+.carousel-indicators li {
+    background-color: #888;
+    width: 10px;
+    height: 10px;
+    margin: 0 4px;
+    border-radius: 50%;
+}
+
+.carousel-indicators .active {
+    background-color: #333;
+}
+
+.carousel-caption {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 1rem;
+    background-color: rgba(25, 97, 106, 0.6);
+    backdrop-filter: blur(8px);
+    color: #fff;
+    text-align: left;
+    border-radius: 5px;
+}
+
+
+  
+  .carousel-caption h3 {
+    margin: 0;
+    font-size: 1.1rem;
+    color: white;
+  }
+  
+  .carousel-caption .price-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+  
+  .carousel-caption .price-container .btn {
+    font-size: 0.9rem;
+    padding: 0.25rem 0.5rem;
+  }
+  
+  .carousel-caption p {
+    margin: 0;
+    font-size: 1rem;
+    color: white;
+  }
+  
+
+  .carousel-caption .btn {
+    margin-left: 1rem;
+    font-size: 0.9rem;
+    padding: 0.25rem 0.5rem;
+    background-color: #ff0000;
+    color: white;
+}
+
+
+.carousel-caption h3,
+.carousel-caption p {
+    color: white;
+}

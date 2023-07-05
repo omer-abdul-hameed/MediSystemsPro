@@ -63,6 +63,16 @@ app.get('/home', function (req, res) {
     res.render('home');
 });
 
+app.get('/check-in-status', function (req, res) {
+    db.Patient.find({})
+        .then(patients => {
+            res.render('check-in-status', {
+                patients: patients
+            })
+        })
+})
+
+
 
 
 // When a GET request is sent to `/seed`, the patients collection is seeded
@@ -82,7 +92,7 @@ app.get('/seed', function (req, res) {
 
 // Render the about page
 app.get('/about', function (req, res) {
-    res.send('about page route')
+    res.render('about')
 });
 
 
@@ -96,7 +106,7 @@ app.use('/doctors', doctorsCtrl)
 
 // The "catch-all" route: Runs for any other URL that doesn't match the above routes
 app.get('*', function (req, res) {
-    res.send('404 Error: Page Not Found')
+    res.render('404')
 });
 
 

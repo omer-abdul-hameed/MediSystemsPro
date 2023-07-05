@@ -52,7 +52,7 @@ router.get('/:id', function (req, res) {
       })
       .catch(() => res.render('404'));
   });
- 
+ //assign doctor route
   router.post('/:id/assign-doctor', function (req, res) {
     const patientId = req.params.id;
     const doctorId = req.body.doctor;
@@ -71,6 +71,29 @@ router.get('/:id', function (req, res) {
       })
       .catch(() => res.render('404'));
   });
+  //Unassign doctor route
+  router.post('/:id/unassign-doctor', function (req, res) {
+    const patientId = req.params.id;
+  
+    db.Patient.findById(patientId)
+      .then(patient => {
+        if (patient) {
+          const removedDoctor = patient.doctors.pop();
+          if (removedDoctor) {
+            return patient.save();
+          } else {
+            throw new Error('No doctors assigned to the patient');
+          }
+        } else {
+          throw new Error('Patient not found');
+        }
+      })
+      .then(() => {
+        res.redirect('/patients/' + patientId);
+      })
+      .catch(() => res.render('404'));
+  });
+  
 
 // Create Route (POST/Create): This route receives the POST request sent from the new route,
 // creates a new patient document using the form data, 

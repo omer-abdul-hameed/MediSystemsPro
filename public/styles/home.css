@@ -1,0 +1,29 @@
+/* About section styles */
+.hero {
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+    color: black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.custom-margin-left {
+    margin-left: -200px; /* Adjust the value as needed */
+}
+
+.about {
+    padding: 2rem;
+    text-align: center;
+    flex-grow: 1;
+}
+
+.about h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.about p {
+    margin-bottom: 1rem;
+}

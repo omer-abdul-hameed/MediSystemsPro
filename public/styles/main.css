@@ -11,33 +11,76 @@
     --font-base: "Bai Jamjuree";
 }
 
+h1,h2,h3,h4,h5,h6 {
+    font-weight: 700;
+}
+
+a {
+    text-decoration: none;
+    color: var(--color-body);
+    transition: all 0.4s ease;
+}
+
+a:hover {
+    color: var(--color-brand);
+}
+
+img {
+    width: 100%;
+}
+
+.text-brand {
+    color: var(--color-brand);
+}
+
+.bg-base {
+    background-color: var(--color-base);
+}
+
+.full-height {
+    min-height: 100vh;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 80px;
+    padding-bottom: 80px;
+    border-bottom: 2px solid rgba(255,255,255, 0.1);
+}
+
+
 .navbar {
     background-color: var(--color-base);
+}
+
+.navbar-nav {
+    width: 100%;
+    justify-content: space-around;
+}
+
+.navbar-nav .nav-link {
+    flex-grow: 1;
 }
 
 .navbar .nav-link {
     font-weight: 700;
     text-transform: uppercase;
-    color: white
+    color: #fff;
 }
 
 .navbar .nav-link:hover {
     color: var(--color-brand);
 }
 
-.navbar-brand img {
-    border-radius: 50%;
+.navbar .nav-link.active {
+    color: var(--color-brand);
 }
 
-.navbar .nav-link.active {
-    color: var(--color-brand)
+.navbar.navbar-expand-lg.navbar-dark .nav-link:hover {
+    color: var(--color-brand);
 }
-.navbar-nav {
-    display: flex;
-    flex-direction: column;
-    gap: 30px; 
-  }
-  /* Reset styles for cross-browser consistency */
+
+/* Reset styles for cross-browser consistency */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -63,28 +106,27 @@
     display: flex;
     justify-content: center;
     align-items: center;
-  }
-  
-  .header-title {
-    color: #fff;
+}
+
+.header-title {
+    color: whitesmoke;
     font-size: 2.5rem;
     font-weight: bold;
     text-transform: uppercase;
     margin: 0;
-  }
-  
-  
-body {
-    font-family: Arial, sans-serif;
-    font-size: 16px;
-    line-height: 1.5;
-    color: #333;
-    background-color: #f7f7f7;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    overflow-y: overlay;
 }
+
+body {
+    font-family: var(--font-base) Arial, sans-serif !important;
+    font-size: 16px !important;
+    line-height: 1.5 !important;
+    color: #333 !important;
+    min-height: 100vh !important;
+    display: flex !important;
+    flex-direction: column !important;
+    overflow-y: overlay !important;
+}
+
 
 a {
     color: #333;
@@ -136,7 +178,6 @@ nav a {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: #e8f1f2;
     height: 40vh;
 }
 
@@ -155,52 +196,42 @@ nav a {
     font-size: 1.5rem;
     text-align: center;
 }
+.btn-group .btn {
+    padding: 0.5rem 1rem;
+    margin-right: 10px;
+}
 
-.btn {
-    display: inline-block;
-    padding: 1rem 2rem;
-    font-size: 1.2rem;
-    background-color: #333;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+.btn.btn-green {
+    background-color: green;
+    color: white;
+}
+
+.btn.btn-gray {
+    background-color: gray;
+    color: white;
+}
+
+.btn.btn-yellow {
+    background-color: yellow;
+    color: black;
+}
+
+.btn.btn-red {
+    background-color: red;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 3px;
+}
+
+.btn.btn-red:hover {
+    background-color: #ff0000;
 }
 
 .btn:hover {
-    background-color: #555;
-}
-.btn-group .btn {
-    padding: 0.5rem 1rem; /* Adjust padding as needed */
-    margin-right: 10px; /* Add space between buttons */
-  }
-
-  .btn-green {
-    background-color: green;
-    color: white;
-  }
-
-  .btn-gray {
-    background-color: gray;
-    color: white;
-  }
-
-  .btn-yellow {
-    background-color: yellow;
-    color: black;
-  }
-
-  .btn-red {
-    background-color: red;
-    color: white;
-    padding: 5px 10px; /* Adjust padding as needed */
-    border-radius: 3px; /* Adjust border-radius as needed */
+    opacity: 0.8;
 }
 
-.btn-red:hover {
-    background-color: #ff0000;
-    /* Add hover styles if desired */
-}
+
 
 /* Footer styles */
 footer {
@@ -217,18 +248,14 @@ footer * {
 footer ul {
     justify-content: center;
 }
-  
+
 @media (min-width: 992px) {
     .navbar {
         min-height: 100vh;
         width: var(--sidbar-width);
-        background: linear-gradient(rgba(3, 63, 71, 0.8), rgba(3, 63, 71, 0.8));
+        background: linear-gradient(rgba(3, 63, 71, 0.8), rgba(3, 63, 71, 0.8)), url(../images/sidebar-img.jpg);
         background-size: cover;
         background-position: center;
-    }
-
-    .navbar-brand img {
-        border: 8px solid var(--color-brand);
     }
 
     /* CONTENT WRAPPER */

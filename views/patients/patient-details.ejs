@@ -18,8 +18,11 @@
             <% for (let doctor of patient.doctors) { %>
                 <h3 class="doctor-name font-weight-bold">
                   Dr. <%= doctor.name %> <%= doctor.type %>
+                  <form action="/patients/<%= patient._id %>/unassign-doctor" method="POST">
+                    <button type="submit" class="btn btn-sm btn-red">Unassign Doctor</button>
+                  </form>
                 </h3>
-              <% } %>         
+              <% } %>     
 
             <section>
                 <p><strong>Date of Birth:</strong>
@@ -71,7 +74,7 @@
 
             <section class="actions">
                 <div class="btn-group btn-group-justified" role="group" aria-label="Patient Actions">
-                    <a href="/patients/<%= patient._id %>/edit" class="btn btn-sm btn-yellow">Edit Patient</a>
+                    <a href="/patients/<%= patient._id %>/edit" class="btn btn-sm btn-yellow">Edit</a>
                     <form method="POST" action="/patients/<%= patient._id %>/checkin?_method=PUT" class="btn-group"
                         role="group">
                         <button type="submit" class="btn btn-sm btn-green">Check-In</button>
@@ -81,7 +84,7 @@
                         <button type="submit" class="btn btn-sm btn-gray">Check-Out</button>
                     </form>
                     <form method="POST" action="/patients/<%= patient._id %>?_method=DELETE" class="btn-group" role="group">
-                        <button type="submit" class="btn btn-sm btn-red">Delete Patient</button>
+                        <button type="submit" class="btn btn-sm btn-red">Delete</button>
                       </form>                                         
                 </div>
             </section>
@@ -91,11 +94,14 @@
                     <label for="doctor">Doctor:</label>
                     <select name="doctor" id="doctor">
                       <% for (let doctor of doctors) { %>
-                        <option value="<%= doctor._id %>"><%= doctor.name %></option>
+                        <% if (doctor.availability) { %>
+                          <option value="<%= doctor._id %>"><%= doctor.name %></option>
+                        <% } %>
                       <% } %>
                     </select>
                     <input type="submit" value="Assign">
                   </form>
+                  
             
 
         </div>
