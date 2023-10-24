@@ -3,6 +3,13 @@ MediSystemsPro is a comprehensive hospital management system built using the MEN
 
 **Screenshot of app**
 ![sitecapture](./public/assets/images/SSapp.png)
+![sitecapture](./public/assets/images/patient_index.png)
+![sitecapture](./public/assets/images/patient_detail.png)
+![sitecapture](./public/assets/images/patient_form.png)
+![sitecapture](./public/assets/images/doctor_index.png)
+![sitecapture](./public/assets/images/doctor_detail.png)
+![sitecapture](./public/assets/images/checkin.png)
+![sitecapture](./public/assets/images/404.png)
 
 # Technologies Used
 The following technologies were utilized in the development of MediSystemsPro:
